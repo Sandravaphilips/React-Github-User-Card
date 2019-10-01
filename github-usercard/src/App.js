@@ -23,16 +23,19 @@ class App extends React.Component {
     axios.get('https://api.github.com/users/Sandravaphilips/followers')
     .then(response => {
       const dataFromApi = response.data;
-      this.setState(currentState => {
-        return {
-          users: {...currentState, dataFromApi}
-        }
+      this.setState({
+        users: dataFromApi
       })
+      console.log(this.state.users)
     })
   }
   render() {
     return (
-      
+      <div>
+        {this.state.users.map(user => 
+          <UserComponent key={user.id} user={user} />
+        )}
+      </div>
     )
   }
 }
@@ -40,16 +43,15 @@ class App extends React.Component {
 export default App;
 
 
-function UserComponent(props) {
-  const {avatar_url, login, followers_url, following_url, url} = props;
+function UserComponent({user}) {
+  const {avatar_url, login, followers_url, following_url, url} = user;
 
   return (
     <div>
-      <img src={avatar_url} alt='follower-image' />
+      <img src={avatar_url} alt='follower-avatar' />
       <div>
         <h3>{login}</h3>
-        <p>Profile:  
-          <a href={url}>Click here</a>
+        <p>Profile: <a href={url}>Click here</a>
         </p>
         <p>Followers: <a href={followers_url}>Click here</a></p>
         <p>Following: <a href={following_url}>Click here</a></p>
