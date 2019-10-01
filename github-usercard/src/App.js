@@ -8,11 +8,12 @@ class App extends React.Component {
     super(props);
     this.state= {
       users: [
-        { imageUrl: '',
-          username: '',
-          followersCount: 0,
-          followingCount: 0,
-          githubAddress: ''
+        { avatar_url: '',
+          login: '',
+          followers_url: '',
+          following_url: '',
+          url: '',
+          id: 0
         }
       ]
     }
@@ -37,3 +38,22 @@ class App extends React.Component {
 }
 
 export default App;
+
+
+function UserComponent(props) {
+  const {avatar_url, login, followers_url, following_url, url} = props;
+
+  return (
+    <div>
+      <img src={avatar_url} alt='follower-image' />
+      <div>
+        <h3>{login}</h3>
+        <p>Profile:  
+          <a href={url}>Click here</a>
+        </p>
+        <p>Followers: <a href={followers_url}>Click here</a></p>
+        <p>Following: <a href={following_url}>Click here</a></p>
+      </div>
+    </div>
+  )
+}
